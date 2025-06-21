@@ -8,12 +8,12 @@ import software.bernie.geckolib.model.DefaultedBlockGeoModel;
 
 public class HamsterWheelModel extends DefaultedBlockGeoModel<HamsterWheelBlockEntity> {
     public HamsterWheelModel() {
-        super(new ResourceLocation(Hamsters.MOD_ID, "hamster_wheel"));
+        super(ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "hamster_wheel"));
     }
 
     @Override
     public ResourceLocation getAnimationResource(HamsterWheelBlockEntity hamsterWheel) {
-        return new ResourceLocation(Hamsters.MOD_ID, "animations/hamster_wheel.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "animations/hamster_wheel.animation.json");
     }
 
 

@@ -1,9 +1,11 @@
 # gradle
 
-.gradle/
-build/
-out/
-classes/
+.gradle
+build
+out
+classes
+libs
+bin
 
 # eclipse
 
@@ -11,16 +13,15 @@ classes/
 
 # idea
 
-.idea/
+.idea
 *.iml
 *.ipr
 *.iws
 
 # vscode
 
-.settings/
-.vscode/
-bin/
+.settings
+.vscode
 .classpath
 .project
 
@@ -28,9 +29,11 @@ bin/
 
 *.DS_Store
 
-# fabric
+# test
 
-run/
+run
+runs
+test
 
 # java
 

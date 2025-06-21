@@ -23,13 +23,13 @@ public class HamsterRenderer extends GeoEntityRenderer<Hamster> {
     }
 
     private static final Map<Hamster.Variant, ResourceLocation> TEXTURES = Util.make(Maps.newHashMap(), hashMap -> {
-        hashMap.put(Hamster.Variant.WHITE, new ResourceLocation(MOD_ID, "textures/entity/hamster/white.png"));
-        hashMap.put(Hamster.Variant.PEACHES_AND_CREAM, new ResourceLocation(MOD_ID, "textures/entity/hamster/peaches_and_cream.png"));
-        hashMap.put(Hamster.Variant.ORANGE, new ResourceLocation(MOD_ID, "textures/entity/hamster/orange.png"));
-        hashMap.put(Hamster.Variant.GREY_WHITE, new ResourceLocation(MOD_ID, "textures/entity/hamster/grey_white.png"));
-        hashMap.put(Hamster.Variant.BROWN, new ResourceLocation(MOD_ID, "textures/entity/hamster/brown.png"));
-        hashMap.put(Hamster.Variant.BLACK_WHITE, new ResourceLocation(MOD_ID, "textures/entity/hamster/black_white.png"));
-        hashMap.put(Hamster.Variant.BLACK, new ResourceLocation(MOD_ID, "textures/entity/hamster/black.png"));
+        hashMap.put(Hamster.Variant.WHITE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/white.png"));
+        hashMap.put(Hamster.Variant.PEACHES_AND_CREAM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/peaches_and_cream.png"));
+        hashMap.put(Hamster.Variant.ORANGE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/orange.png"));
+        hashMap.put(Hamster.Variant.GREY_WHITE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/grey_white.png"));
+        hashMap.put(Hamster.Variant.BROWN, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/brown.png"));
+        hashMap.put(Hamster.Variant.BLACK_WHITE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/black_white.png"));
+        hashMap.put(Hamster.Variant.BLACK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/black.png"));
     });
 
     @Override

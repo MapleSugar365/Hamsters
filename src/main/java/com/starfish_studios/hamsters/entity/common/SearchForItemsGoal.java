@@ -2,7 +2,6 @@ package com.starfish_studios.hamsters.entity.common;
 
 import com.starfish_studios.hamsters.entity.Hamster;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;

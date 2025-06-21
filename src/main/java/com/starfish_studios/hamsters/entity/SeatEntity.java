@@ -8,6 +8,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.List;
 
 public class SeatEntity extends Entity {
 
@@ -37,37 +38,46 @@ public class SeatEntity extends Entity {
 
     @Override
     public void tick() {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide)
+            return;
 
         BlockState state = this.level().getBlockState(this.blockPosition());
         boolean canMount;
-        if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock) canMount = hamsterWheelBlock.isMountable(state);
-        else canMount = false;
-        if (isVehicle() && canMount) return;
-
+        if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock)
+            canMount = hamsterWheelBlock.isMountable(state);
+        else
+            canMount = false;
+        if (isVehicle() && canMount)
+            return;
 
         this.discard();
-        this.level().updateNeighbourForOutputSignal(this.blockPosition(), this.level().getBlockState(this.blockPosition()).getBlock());
+        this.level().updateNeighbourForOutputSignal(this.blockPosition(),
+                this.level().getBlockState(this.blockPosition()).getBlock());
     }
 
     @Override
-    protected void defineSynchedData() {}
+    protected void defineSynchedData(SynchedEntityData.Builder var1) {
+    }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compound) {}
+    protected void readAdditionalSaveData(CompoundTag compound) {
+    }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {}
+    protected void addAdditionalSaveData(CompoundTag compound) {
+    }
 
     @Override
-    public double getPassengersRidingOffset() {
-        List<Entity> passengers = this.getPassengers();
-        if (passengers.isEmpty()) return 0.0;
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
         double seatHeight = 0.0;
-        BlockState state = level().getBlockState(this.blockPosition());
-        if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock) seatHeight = hamsterWheelBlock.seatHeight(state);
+        BlockState state = this.level().getBlockState(this.blockPosition());
+        if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock) {
+            seatHeight = hamsterWheelBlock.seatHeight(state);
+        }
 
-        return seatHeight + getEntitySeatOffset(passengers.get(0));
+        double yOffset = seatHeight + getEntitySeatOffset(passenger);
+
+        return new Vec3(0.0D, yOffset, 0.0D);
     }
 
     public static double getEntitySeatOffset(Entity entity) {
@@ -75,14 +85,13 @@ public class SeatEntity extends Entity {
     }
 
     @Override
-    protected boolean canRide(Entity entity)
-    {
+    protected boolean canRide(Entity entity) {
         return true;
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return new ClientboundAddEntityPacket(this);
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+        return new ClientboundAddEntityPacket(this, entity);
     }
 
     @Override
@@ -91,15 +100,19 @@ public class SeatEntity extends Entity {
         Vec3 safeVec;
         BlockState state = this.level().getBlockState(pos);
         if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock) {
-            safeVec = DismountHelper.findSafeDismountLocation(entity.getType(), this.level(), hamsterWheelBlock.primaryDismountLocation(this.level(), state, pos), false);
-            if (safeVec != null) return safeVec.add(0, 0.25, 0);
+            safeVec = DismountHelper.findSafeDismountLocation(entity.getType(), this.level(),
+                    hamsterWheelBlock.primaryDismountLocation(this.level(), state, pos), false);
+            if (safeVec != null)
+                return safeVec.add(0, 0.25, 0);
         }
 
         Direction original = this.getDirection();
-        Direction[] offsets = {original, original.getClockWise(), original.getCounterClockWise(), original.getOpposite()};
-        for(Direction dir : offsets) {
+        Direction[] offsets = { original, original.getClockWise(), original.getCounterClockWise(),
+                original.getOpposite() };
+        for (Direction dir : offsets) {
             safeVec = DismountHelper.findSafeDismountLocation(entity.getType(), this.level(), pos.relative(dir), false);
-            if (safeVec != null) return safeVec.add(0, 0.25, 0);
+            if (safeVec != null)
+                return safeVec.add(0, 0.25, 0);
         }
         return super.getDismountLocationForPassenger(entity);
     }
@@ -108,13 +121,15 @@ public class SeatEntity extends Entity {
     protected void addPassenger(Entity passenger) {
         BlockPos pos = this.blockPosition();
         BlockState state = this.level().getBlockState(pos);
-        if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock) passenger.setYRot(hamsterWheelBlock.setRiderRotation(state, passenger));
+        if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock)
+            passenger.setYRot(hamsterWheelBlock.setRiderRotation(state, passenger));
         super.addPassenger(passenger);
     }
 
     @Override
     protected void removePassenger(Entity entity) {
         super.removePassenger(entity);
-        if (entity instanceof TamableAnimal ta) ta.setInSittingPose(false);
+        if (entity instanceof TamableAnimal ta)
+            ta.setInSittingPose(false);
     }
 }

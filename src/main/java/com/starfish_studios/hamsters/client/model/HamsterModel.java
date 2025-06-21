@@ -1,12 +1,11 @@
 package com.starfish_studios.hamsters.client.model;
 
 import com.starfish_studios.hamsters.Hamsters;
-import com.starfish_studios.hamsters.block.entity.HamsterWheelBlockEntity;
 import com.starfish_studios.hamsters.entity.Hamster;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
 import static com.starfish_studios.hamsters.Hamsters.MOD_ID;
@@ -14,17 +13,17 @@ import static com.starfish_studios.hamsters.Hamsters.MOD_ID;
 public class HamsterModel extends DefaultedEntityGeoModel<Hamster> {
 
     public HamsterModel() {
-        super(new ResourceLocation(MOD_ID, "hamster"), true);
+        super(ResourceLocation.fromNamespaceAndPath(MOD_ID, "hamster"), true);
     }
 
     @Override
     public ResourceLocation getTextureResource(Hamster animatable) {
-        return new ResourceLocation(MOD_ID, "textures/entity/hamster/orange.png");
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/orange.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(Hamster animatable) {
-        return new ResourceLocation(Hamsters.MOD_ID, "animations/hamster.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "animations/hamster.animation.json");
     }
 
     @Override
@@ -37,9 +36,9 @@ public class HamsterModel extends DefaultedEntityGeoModel<Hamster> {
         super.setCustomAnimations(animatable, instanceId, animationState);
 
         if (animationState == null) return;
-        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
-        CoreGeoBone sleep = this.getAnimationProcessor().getBone("sleep");
-        CoreGeoBone cheeks = this.getAnimationProcessor().getBone("cheeks");
+        GeoBone head = this.getAnimationProcessor().getBone("head");
+        GeoBone sleep = this.getAnimationProcessor().getBone("sleep");
+        GeoBone cheeks = this.getAnimationProcessor().getBone("cheeks");
 
         cheeks.setHidden(animatable.getMainHandItem().isEmpty());
 
