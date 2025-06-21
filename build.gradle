@@ -11,8 +11,8 @@ repositories {
 		name = 'GeckoLib'
 		url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
 	}
-
-
+	
+	maven { url = "https://modmaven.dev/" }
 	maven { url = "https://maven.tterrag.com/" }
 	maven { url = "https://api.modrinth.com/maven" } // Modrinth
 	maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
