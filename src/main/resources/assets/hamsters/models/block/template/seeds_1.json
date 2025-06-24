@@ -1,0 +1,17 @@
+{
+	"texture_size": [32, 32],
+	"textures": {
+		"all": "hamsters:block/bowl/seeds",
+		"particle": "#all"
+	},
+	"elements": [
+		{
+			"from": [4, 1, 4],
+			"to": [12, 1, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1, 8]},
+			"faces": {
+				"up": {"uv": [4, 4, 12, 12], "texture": "#all"}
+			}
+		}
+	]
+}

@@ -61,7 +61,6 @@ public class HamsterWheelBlock extends BaseEntityBlock implements EntityBlock {
         return entity.getYRot();
     }
 
-    @SuppressWarnings("unused")
     public static boolean isOccupied(Level level, BlockPos pos) {
         // BlockState state = level.getBlockState(pos);
         // level.setBlock(pos, state.setValue(POWERED, true), 3);

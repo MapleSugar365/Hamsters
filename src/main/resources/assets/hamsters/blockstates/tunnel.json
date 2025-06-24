@@ -1,113 +1,105 @@
 {
   "variants": {
     "north=false,east=false,south=false,west=false,up=false,down=false": {
-      "model": "hamsters:block/one_way"
+      "model": "hamsters:block/tunnel/one_way"
     },
     "north=false,east=false,south=false,west=false,up=false,down=true": {
-      "model": "hamsters:block/one_way"
+      "model": "hamsters:block/tunnel/one_way"
     },
     "north=false,east=false,south=false,west=false,up=true,down=false": {
-      "model": "hamsters:block/one_way"
+      "model": "hamsters:block/tunnel/one_way"
     },
     "north=false,east=false,south=false,west=false,up=true,down=true": {
-      "model": "hamsters:block/one_way"
+      "model": "hamsters:block/tunnel/one_way"
     },
     "north=false,east=true,south=false,west=false,up=false,down=false": {
-      "model": "hamsters:block/one_way",
+      "model": "hamsters:block/tunnel/one_way",
       "x": 90,
       "y": 270
     },
     "north=false,east=true,south=false,west=true,up=false,down=false": {
-      "model": "hamsters:block/one_way",
+      "model": "hamsters:block/tunnel/one_way",
       "x": 90,
       "y": 270
     },
     "north=false,east=false,south=false,west=true,up=false,down=false": {
-      "model": "hamsters:block/one_way",
+      "model": "hamsters:block/tunnel/one_way",
       "x": 90,
       "y": 270
     },
     "north=false,east=false,south=true,west=false,up=false,down=false": {
-      "model": "hamsters:block/one_way",
+      "model": "hamsters:block/tunnel/one_way",
       "x": 90
     },
     "north=true,east=false,south=true,west=false,up=false,down=false": {
-      "model": "hamsters:block/one_way",
+      "model": "hamsters:block/tunnel/one_way",
       "x": 90
     },
     "north=true,east=false,south=false,west=false,up=false,down=false": {
-      "model": "hamsters:block/one_way",
+      "model": "hamsters:block/tunnel/one_way",
       "x": 90
     },
     "north=false,east=true,south=false,west=false,up=false,down=true": {
-      "model": "hamsters:block/corner",
+      "model": "hamsters:block/tunnel/corner",
       "x": 90,
       "y": 90
     },
     "north=false,east=true,south=false,west=false,up=true,down=false": {
-      "model": "hamsters:block/corner",
+      "model": "hamsters:block/tunnel/corner",
       "y": 90
     },
     "north=true,east=false,south=false,west=false,up=true,down=false": {
-      "model": "hamsters:block/corner"
+      "model": "hamsters:block/tunnel/corner"
     },
     "north=false,east=false,south=false,west=true,up=true,down=false": {
-      "model": "hamsters:block/corner",
+      "model": "hamsters:block/tunnel/corner",
       "y": -90
     },
     "north=false,east=false,south=false,west=true,up=false,down=true": {
-      "model": "hamsters:block/corner",
+      "model": "hamsters:block/tunnel/corner",
       "x": -180,
       "y": 90
     },
-
-
     "north=false,east=false,south=true,west=false,up=true,down=true": {
-      "model": "hamsters:block/t_shape",
+      "model": "hamsters:block/tunnel/t_shape",
       "y": 180
     },
     "north=true,east=false,south=false,west=false,up=true,down=true": {
-      "model": "hamsters:block/t_shape"
+      "model": "hamsters:block/tunnel/t_shape"
     },
     "north=false,east=true,south=false,west=false,up=true,down=true": {
-      "model": "hamsters:block/t_shape",
+      "model": "hamsters:block/tunnel/t_shape",
       "y": 90
     },
     "north=false,east=false,south=false,west=true,up=true,down=true": {
-      "model": "hamsters:block/t_shape",
+      "model": "hamsters:block/tunnel/t_shape",
       "y": -90
     },
-
-
     "north=true,east=false,south=true,west=false,up=true,down=false": {
-      "model": "hamsters:block/t_shape",
+      "model": "hamsters:block/tunnel/t_shape",
       "x": -90,
       "y": 180
     },
     "north=true,east=false,south=true,west=false,up=false,down=true": {
-      "model": "hamsters:block/t_shape",
+      "model": "hamsters:block/tunnel/t_shape",
       "x": 90
     },
     "north=false,east=true,south=false,west=true,up=false,down=true": {
-      "model": "hamsters:block/t_shape",
+      "model": "hamsters:block/tunnel/t_shape",
       "x": 90,
       "y": -90
     },
-
-
     "north=false,east=true,south=true,west=false,up=false,down=false": {
-      "model": "hamsters:block/corner"
+      "model": "hamsters:block/tunnel/corner"
     },
     "north=true,east=true,south=false,west=false,up=false,down=false": {
-      "model": "hamsters:block/corner"
+      "model": "hamsters:block/tunnel/corner"
     },
     "north=false,east=false,south=true,west=true,up=false,down=false": {
-      "model": "hamsters:block/corner"
+      "model": "hamsters:block/tunnel/corner"
     },
     "north=true,east=false,south=false,west=true,up=false,down=false": {
-      "model": "hamsters:block/corner"
+      "model": "hamsters:block/tunnel/corner"
     }
-
-
   }
 }

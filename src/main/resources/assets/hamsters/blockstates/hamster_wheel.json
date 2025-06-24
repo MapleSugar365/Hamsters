@@ -18,4 +18,7 @@
       "model":"hamsters:block/hamster_wheel"},
     "facing=down":{
       "y":0,
-      "model":"hamsters:block/hamster_wheel"}}}
+      "model":"hamsters:block/hamster_wheel"
+    }
+  }
+}
