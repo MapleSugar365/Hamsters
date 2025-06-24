@@ -21,6 +21,7 @@ classes/
 .settings/
 .vscode/
 bin/
+libs
 .classpath
 .project
 
@@ -30,7 +31,9 @@ bin/
 
 # fabric
 
-run/
+run
+runs
+test
 
 # java
 
