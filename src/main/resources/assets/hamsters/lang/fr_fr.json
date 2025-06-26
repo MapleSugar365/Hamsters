@@ -1,24 +1,18 @@
 {
-  "itemGroup.hamsters.tab": "Hamsters",
-  "item.hamsters.hamsters": "Hamsters",
-
-  "entity.hamsters.hamster": "Hamster",
-  "item.hamsters.hamster": "Hamster",
+  "item.hamsters.hamster_spawn_egg": "Oeuf d'apparition de hamster",
 
   "tooltip.hamsters.white": "Blanc",
-  "tooltip.hamsters.peaches_and_cream": "Pêches et crème",
-  "tooltip.hamsters.orange": "Orange",
-  "tooltip.hamsters.grey_white": "Gris et blanc",
-  "tooltip.hamsters.brown": "Marron",
-  "tooltip.hamsters.black_white": "Noir et blanc",
+  "tooltip.hamsters.cream": "Pêches et crème",
+  "tooltip.hamsters.champagne": "Orange",
+  "tooltip.hamsters.silver_dove": "Gris et blanc",
+  "tooltip.hamsters.dove": "Marron",
+  "tooltip.hamsters.chocolate": "Noir et blanc",
   "tooltip.hamsters.black": "Noir",
 
-  "tooltip.hamsters.tamed": "Apprivoisé",
   "tooltip.hamsters.baby": "Bébé",
 
-  "item.hamsters.hamster_spawn_egg": "Oeuf d'apparition de hamster",
-  "block.hamsters.tunnel": "Tunnel",
   "block.hamsters.hamster_wheel": "Roue de hamster",
+  "block.hamsters.tunnel": "Tunnel",
 
   "hamsters.subtitles.hamster.ambient": "Clapissement de hamster",
   "hamsters.subtitles.hamster.hurt": "Hamster blessé",

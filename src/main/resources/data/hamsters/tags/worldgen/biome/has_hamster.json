@@ -1,8 +1,7 @@
 {
   "values": [
-    "minecraft:plains",
-    "minecraft:meadow",
-    "minecraft:sunflower_plains",
-    "#neoforge:is_plains"
+    "#c:plains",
+    "#c:tree_deciduous",
+    "#c:is_dry/overworld"
   ]
 }

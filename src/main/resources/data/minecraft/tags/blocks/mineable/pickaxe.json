@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#hamsters:cage_panels",
+    "#hamsters:hamster_bottles",
+    "#hamsters:hamster_bowls",
+    "#hamsters:hamster_wheels"
+  ]
+}

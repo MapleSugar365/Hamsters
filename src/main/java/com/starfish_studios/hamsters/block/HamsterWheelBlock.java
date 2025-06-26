@@ -1,6 +1,9 @@
 package com.starfish_studios.hamsters.block;
 
-import com.mojang.serialization.MapCodec;
+import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
+import com.simibubi.create.foundation.block.IBE;
+import com.starfish_studios.hamsters.block.entity.HamsterWheelBlockEntity;
+import com.starfish_studios.hamsters.block.util.HamsterBlock;
 import com.starfish_studios.hamsters.entity.Hamster;
 import com.starfish_studios.hamsters.entity.SeatEntity;
 import com.starfish_studios.hamsters.registry.HamstersBlockEntities;
@@ -9,84 +12,123 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings("unused")
-public class HamsterWheelBlock extends BaseEntityBlock implements EntityBlock {
+public class HamsterWheelBlock extends DirectionalKineticBlock
+        implements HamsterBlock, SimpleWaterloggedBlock, IBE<HamsterWheelBlockEntity> {
+
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     public HamsterWheelBlock(Properties properties) {
         super(properties);
-        registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        registerDefaultState(
+                this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
-    protected static final VoxelShape NORTH = Block.box(1, 0, 3, 15, 16, 16);
-    protected static final VoxelShape SOUTH = Block.box(1, 0, 0, 15, 16, 13);
-    protected static final VoxelShape EAST = Block.box(0, 0, 1, 13, 16, 15);
-    protected static final VoxelShape WEST = Block.box(3, 0, 1, 16, 16, 15);
+    // region Block State Initialization
 
-    public boolean isMountable(BlockState state) {
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING, WATERLOGGED);
+    }
+
+    @Override
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos,
+            @NotNull CollisionContext context) {
+        return switch (state.getValue(FACING)) {
+            case SOUTH -> Block.box(1, 0, 0, 15, 16, 13);
+            case EAST -> Block.box(0, 0, 1, 13, 16, 15);
+            case WEST -> Block.box(3, 0, 1, 16, 16, 15);
+            default -> Block.box(1, 0, 3, 15, 16, 16);
+        };
+    }
+
+    @Override
+    public @NotNull BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction,
+            @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos currentPos,
+            @NotNull BlockPos neighborPos) {
+        if (HamsterBlock.isWaterlogged(blockState))
+            levelAccessor.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
+        return super.updateShape(blockState, direction, neighborState, levelAccessor, currentPos, neighborPos);
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.getStateDefinition().any()
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(WATERLOGGED,
+                        context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
+    }
+
+    @Override
+    public @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
+        if (HamsterBlock.isWaterlogged(blockState))
+            return Fluids.WATER.getSource(false);
+        return super.getFluidState(blockState);
+    }
+
+    @Override
+    public Direction.Axis getRotationAxis(BlockState state) {
+        return state.getValue(FACING).getAxis();
+    }
+
+    @Override
+    public boolean hasShaftTowards(LevelReader levelReader, BlockPos blockPos, BlockState blockState,
+            Direction direction) {
+        return direction == blockState.getValue(FACING).getOpposite();
+    }
+
+    // endregion
+
+    // region Interaction
+
+    public boolean isMountable() {
         return true;
     }
 
-    public BlockPos primaryDismountLocation(Level level, BlockState state, BlockPos pos) {
-        return pos;
+    public static boolean isOccupied(Level level, BlockPos blockPos) {
+        return !level.getEntitiesOfClass(SeatEntity.class, new AABB(blockPos)).isEmpty();
     }
 
-    public float setRiderRotation(BlockState state, Entity entity) {
+    public float setRiderRotation(Entity entity) {
         return entity.getYRot();
     }
 
-    public static boolean isOccupied(Level level, BlockPos pos) {
-        // BlockState state = level.getBlockState(pos);
-        // level.setBlock(pos, state.setValue(POWERED, true), 3);
-        return !level.getEntitiesOfClass(SeatEntity.class, new AABB(pos)).isEmpty();
-    }
-
-    public float seatHeight(BlockState state) {
-        return 0F;
-    }
-
     public static Optional<Entity> getLeashed(Player player) {
-        List<Entity> entities = player.level().getEntities((Entity) null, player.getBoundingBox().inflate(10),
-                e -> true);
-        for (Entity e : entities)
-            if (e instanceof Mob mob && mob.getLeashHolder() == player && canBePickedUp(e))
+        List<Entity> nearbyEntities = player.level().getEntitiesOfClass(Entity.class,
+                player.getBoundingBox().inflate(10), EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+        for (Entity entities : nearbyEntities)
+            if (entities instanceof Mob mob && mob.getLeashHolder() == player && canBePickedUp(entities))
                 return Optional.of(mob);
         return Optional.empty();
-    }
-
-    public static boolean ejectSeatedExceptPlayer(Level level, SeatEntity seatEntity) {
-        List<Entity> passengers = seatEntity.getPassengers();
-        if (passengers.isEmpty())
-            return false;
-        if (!level.isClientSide)
-            seatEntity.ejectPassengers();
-        return true;
     }
 
     public static boolean canBePickedUp(Entity passenger) {
@@ -95,43 +137,59 @@ public class HamsterWheelBlock extends BaseEntityBlock implements EntityBlock {
         return passenger instanceof LivingEntity;
     }
 
-    public static void sitDown(Level level, BlockPos pos, Entity entity) {
-        if (level.isClientSide)
-            return;
-        if (entity == null)
+    public static boolean ejectSeatedExceptPlayer(Level level, SeatEntity seatEntity) {
+        if (seatEntity.getPassengers().isEmpty())
+            return false;
+        if (!level.isClientSide())
+            seatEntity.ejectPassengers();
+        return true;
+    }
+
+    public static void sitDown(Level level, BlockPos blockPos, Entity entity) {
+
+        if (level.isClientSide() || entity == null)
             return;
 
-        SeatEntity seat = new SeatEntity(level, pos);
-        level.addFreshEntity(seat);
-        entity.startRiding(seat);
+        SeatEntity seatEntity = new SeatEntity(level, blockPos);
+        level.addFreshEntity(seatEntity);
+        entity.startRiding(seatEntity);
 
-        level.updateNeighbourForOutputSignal(pos, level.getBlockState(pos).getBlock());
+        level.updateNeighbourForOutputSignal(blockPos, level.getBlockState(blockPos).getBlock());
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(BlockState state) {
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
+            BlockHitResult hitResult) {
+        InteractionResult original = super.useWithoutItem(state, level, pos, player, hitResult);
+        if (level.mayInteract(player, pos) && player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() &&
+                !player.isShiftKeyDown() && !player.isPassenger() && this.isMountable()) {
+            if (isOccupied(level, pos)) {
+                List<SeatEntity> seatEntities = level.getEntitiesOfClass(SeatEntity.class, new AABB(pos));
+                if (!seatEntities.isEmpty() && ejectSeatedExceptPlayer(level, seatEntities.get(0))) {
+                    return InteractionResult.SUCCESS;
+                }
+                return original;
+            }
+            if (getLeashed(player).isPresent() && getLeashed(player).get() instanceof Hamster hamster) {
+                sitDown(level, pos, hamster);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return original;
+    }
+
+    // endregion
+
+    // region Miscellaneous
+
+    @Override
+    public boolean hasAnalogOutputSignal(@NotNull BlockState blockState) {
         return true;
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        return isOccupied(level, pos) ? 15 : 0;
-    }
-
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    public int getAnalogOutputSignal(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
+        return isOccupied(level, blockPos) ? 15 : 0;
     }
 
     @Nullable
@@ -141,97 +199,24 @@ public class HamsterWheelBlock extends BaseEntityBlock implements EntityBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player,
-            BlockHitResult blockHitResult) {
-        ItemStack mainHandItem = player.getMainHandItem();
-
-        if (mainHandItem.isEmpty() || (!mainHandItem.isEmpty() && !player.isShiftKeyDown())) {
-            if (!level.mayInteract(player, blockPos))
-                return InteractionResult.PASS;
-
-            if (!isMountable(blockState) || player.isPassenger() || player.isCrouching())
-                return InteractionResult.PASS;
-
-            if (isOccupied(level, blockPos)) {
-                List<SeatEntity> seats = level.getEntitiesOfClass(SeatEntity.class, new AABB(blockPos));
-
-                if (!seats.isEmpty()) {
-                    if (seats.get(0).getFirstPassenger() instanceof Hamster hamster) {
-                        hamster.setWaitTimeWhenRunningTicks(0);
-                        hamster.setWaitTimeBeforeRunTicks(hamster.getRandom().nextInt(200) + 600);
-                    }
-
-                    if (ejectSeatedExceptPlayer(level, seats.get(0)))
-                        return InteractionResult.SUCCESS;
-                }
-                return InteractionResult.PASS;
-            }
-
-            Optional<Entity> leashed = getLeashed(player);
-            if (leashed.isPresent() && leashed.get() instanceof Hamster hamster) {
-                hamster.setWaitTimeBeforeRunTicks(0);
-                sitDown(level, blockPos, hamster);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return super.useWithoutItem(blockState, level, blockPos, player, blockHitResult);
-    }
-
-    // @Override
-    // public InteractionResult useWithoutItem(BlockState blockState, Level level,
-    // BlockPos blockPos, Player player,
-    // InteractionHand interactionHand, BlockHitResult blockHitResult) {
-    // if (player.getItemInHand(interactionHand).isEmpty()
-    // || (!player.getItemInHand(interactionHand).isEmpty() &&
-    // !player.isShiftKeyDown())) {
-    // if (!level.mayInteract(player, blockPos))
-    // return InteractionResult.PASS;
-
-    // if (!isMountable(blockState) || player.isPassenger() || player.isCrouching())
-    // return InteractionResult.PASS;
-
-    // if (isOccupied(level, blockPos)) {
-
-    // List<SeatEntity> seats = level.getEntitiesOfClass(SeatEntity.class, new
-    // AABB(blockPos));
-
-    // if (seats.get(0).getFirstPassenger() instanceof Hamster hamster) {
-    // hamster.setWaitTimeWhenRunningTicks(0);
-    // hamster.setWaitTimeBeforeRunTicks(hamster.getRandom().nextInt(200) + 600);
-    // }
-
-    // if (ejectSeatedExceptPlayer(level, seats.get(0)))
-    // return InteractionResult.SUCCESS;
-    // return InteractionResult.PASS;
-    // }
-    // if (getLeashed(player).isPresent() && getLeashed(player).get() instanceof
-    // Hamster hamster) {
-    // hamster.setWaitTimeBeforeRunTicks(0);
-    // sitDown(level, blockPos, hamster);
-    // }
-    // return InteractionResult.SUCCESS;
-    // }
-    // return super.useWithoutItem(blockState, level, blockPos, player,
-    // interactionHand, blockHitResult);
-    // }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return switch (state.getValue(FACING)) {
-            case SOUTH -> SOUTH;
-            case EAST -> EAST;
-            case WEST -> WEST;
-            default -> NORTH;
-        };
+    public BlockEntityType<? extends HamsterWheelBlockEntity> getBlockEntityType() {
+        return HamstersBlockEntities.HAMSTER_WHEEL.get();
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        return world.getBlockState(pos.below()).isFaceSturdy(world, pos.below(), net.minecraft.core.Direction.UP);
+    public Class<HamsterWheelBlockEntity> getBlockEntityClass() {
+        return HamsterWheelBlockEntity.class;
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(HamsterWheelBlock::new);
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
+
+    @Override
+    public boolean showCapacityWithAnnotation() {
+        return true;
+    }
+
+    // endregion
 }

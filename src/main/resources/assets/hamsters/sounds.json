@@ -29,22 +29,63 @@
 		],
 		"subtitle": "hamsters.subtitles.hamster.death"
 	},
+	"entity.hamster.beg": {
+		"sounds": [
+		  "hamsters:entity/hamster/beg1",
+		  "hamsters:entity/hamster/beg2",
+		  "hamsters:entity/hamster/beg3",
+		  "hamsters:entity/hamster/beg4"
+		],
+		"subtitle": "hamsters.subtitles.hamster.beg"
+	},
+	"entity.hamster.eat": {
+		"sounds": [
+			"minecraft:mob/parrot/eat1",
+			"minecraft:mob/parrot/eat2",
+			"minecraft:mob/parrot/eat3"
+		],
+		"subtitle": "hamsters.subtitles.hamster.eat"
+	},
+	"entity.hamster.explode": {
+		"sounds": [
+		  "hamsters:entity/hamster/yay"
+		],
+		"subtitle": "hamsters.subtitles.hamster.explode"
+	},
 	"entity.hamster.sleep": {
 		"sounds": [
-		  "hamsters:entity/hamster/sleep1",
-		  "hamsters:entity/hamster/sleep2",
-		  "hamsters:entity/hamster/sleep3",
-		  "hamsters:entity/hamster/sleep4"
+			"hamsters:entity/hamster/sleep1",
+			"hamsters:entity/hamster/sleep2",
+			"hamsters:entity/hamster/sleep3",
+			"hamsters:entity/hamster/sleep4"
 		],
 		"subtitle": "hamsters.subtitles.hamster.sleep"
 	},
-	"entity.hamster.beg": {
+	"entity.hamster.squish": {
 		"sounds": [
-		  "hamsters:entity/hamster/standing1",
-		  "hamsters:entity/hamster/standing2",
-		  "hamsters:entity/hamster/standing3",
-		  "hamsters:entity/hamster/standing4"
+			"minecraft:mob/slime/big1",
+			"minecraft:mob/slime/big2",
+			"minecraft:mob/slime/big3",
+			"minecraft:mob/slime/big4"
 		],
-		"subtitle": "hamsters.subtitles.hamster.beg"
+		"subtitle": "hamsters.subtitles.hamster.squish"
+	},
+	"entity.hamster.unsquish": {
+		"sounds": [
+			"minecraft:mob/chicken/plop"
+		],
+		"subtitle": "hamsters.subtitles.hamster.unsquish"
+	},
+	"entity.hamster.pick_up": {
+		"sounds": [
+			"minecraft:random/pop"
+		],
+		"subtitle": "hamsters.subtitles.hamster.pick_up"
+	},
+	"entity.hamster.place": {
+		"sounds": [
+			"minecraft:mob/chicken/plop"
+		],
+		"subtitle": "hamsters.subtitles.hamster.place"
 	}
 }

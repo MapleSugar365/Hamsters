@@ -1,50 +1,48 @@
 package com.starfish_studios.hamsters.client.renderer;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.starfish_studios.hamsters.client.model.HamsterModel;
+import com.starfish_studios.hamsters.client.renderer.layers.HamsterCollarLayer;
+import com.starfish_studios.hamsters.client.renderer.layers.HamsterMarkingLayer;
 import com.starfish_studios.hamsters.entity.Hamster;
-import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-import java.util.Map;
-
-import static com.starfish_studios.hamsters.Hamsters.MOD_ID;
-
+@OnlyIn(Dist.CLIENT)
 public class HamsterRenderer extends GeoEntityRenderer<Hamster> {
+    public final EntityRendererProvider.Context context;
 
     public HamsterRenderer(EntityRendererProvider.Context context) {
+
         super(context, new HamsterModel());
         this.shadowRadius = 0.3F;
-    }
-
-    private static final Map<Hamster.Variant, ResourceLocation> TEXTURES = Util.make(Maps.newHashMap(), hashMap -> {
-        hashMap.put(Hamster.Variant.WHITE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/white.png"));
-        hashMap.put(Hamster.Variant.PEACHES_AND_CREAM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/peaches_and_cream.png"));
-        hashMap.put(Hamster.Variant.ORANGE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/orange.png"));
-        hashMap.put(Hamster.Variant.GREY_WHITE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/grey_white.png"));
-        hashMap.put(Hamster.Variant.BROWN, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/brown.png"));
-        hashMap.put(Hamster.Variant.BLACK_WHITE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/black_white.png"));
-        hashMap.put(Hamster.Variant.BLACK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/hamster/black.png"));
-    });
-
-    @Override
-    public @NotNull ResourceLocation getTextureLocation(Hamster entity) {
-        return TEXTURES.get(entity.getVariant());
+        this.context = context;
+        this.addRenderLayer(new HamsterMarkingLayer(this));
+        this.addRenderLayer(new HamsterCollarLayer(this));
     }
 
     @Override
-    public void render(Hamster animatable, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-            if (animatable.isBaby()) {
-                poseStack.scale(0.6F, 0.6F, 0.6F);
-            } else {
-                poseStack.scale(1F, 1F, 1F);
-            }
-        super.render(animatable, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    public float getMotionAnimThreshold(Hamster animatable) {
+        return 0.001F;
     }
 
+    @Override
+    public void render(Hamster hamster, float yaw, float partialTick, @NotNull PoseStack poseStack,
+            @NotNull MultiBufferSource bufferSource, int packedLight) {
+
+        float adultScale = 1.0F;
+        float babyScale = 0.6F;
+
+        if (hamster.isBaby())
+            poseStack.scale(babyScale, babyScale, babyScale);
+        else
+            poseStack.scale(adultScale, adultScale, adultScale);
+
+        super.render(hamster, yaw, partialTick, poseStack, bufferSource, packedLight);
+    }
 }

@@ -26,20 +26,22 @@ public class HamsterWheelItem extends BlockItem implements GeoItem {
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
             private GeoItemRenderer<HamsterWheelItem> renderer = null;
+
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 if (this.renderer == null)
-                    this.renderer = new GeoItemRenderer<>(new DefaultedBlockGeoModel<>(ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "hamster_wheel")));
+                    this.renderer = new GeoItemRenderer<>(new DefaultedBlockGeoModel<>(
+                            ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "hamster_wheel")));
 
                 return this.renderer;
             }
         });
     }
 
-//    @Override
-//    public Supplier<Object> getRenderProvider() {
-//        return this.renderProvider;
-//    }
+    // @Override
+    // public Supplier<Object> getRenderProvider() {
+    // return this.renderProvider;
+    // }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {

@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "hamsters:item/hamster/white",
+        "layer1": "hamsters:item/hamster/banded"
+    }
+}

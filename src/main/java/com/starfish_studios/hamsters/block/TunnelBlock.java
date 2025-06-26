@@ -80,7 +80,7 @@ public class TunnelBlock extends Block {
 
     public void entityInside(BlockState blockState, Level level, BlockPos blockPos,
             net.minecraft.world.entity.Entity entity) {
-        // TODO: Having a hard time getting this to work without launching the entity
+        // Having a hard time getting this to work without launching the entity
         // while they're in a corner.
         // entity.setDeltaMovement(entity.getDeltaMovement().multiply(1.2F, 1.0F,
         // 1.2F));
@@ -99,7 +99,7 @@ public class TunnelBlock extends Block {
             shape = Shapes.or(shape, SOLID_TOP, SOLID_BOTTOM);
         }
         return shape;
-        // TODO: This should be a modular system that can handle any combination of
+        // This should be a modular system that can handle any combination of
         // tunnels, but it's not working properly.
     }
 
@@ -137,7 +137,7 @@ public class TunnelBlock extends Block {
                 .setValue(WEST, blockState6.is(this));
     }
 
-    // TODO: This may be why the collisions aren't working properly, but I haven't
+    // This may be why the collisions aren't working properly, but I haven't
     // played with this part yet.
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2,
             LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {

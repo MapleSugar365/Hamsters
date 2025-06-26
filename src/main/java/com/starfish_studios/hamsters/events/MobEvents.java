@@ -4,7 +4,6 @@ import com.starfish_studios.hamsters.Hamsters;
 import com.starfish_studios.hamsters.entity.Hamster;
 import com.starfish_studios.hamsters.registry.HamstersEntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -22,8 +21,8 @@ public class MobEvents {
     @SubscribeEvent
     public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
         event.register(HamstersEntityType.HAMSTER.get(), SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.WORLD_SURFACE_WG, Animal::checkAnimalSpawnRules,
-                RegisterSpawnPlacementsEvent.Operation.AND);
+                Heightmap.Types.WORLD_SURFACE_WG, Hamster::checkHamsterSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.OR);
     }
 
 }

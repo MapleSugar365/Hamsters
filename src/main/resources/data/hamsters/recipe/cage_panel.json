@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cage_panels",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "result": {
+    "item": "hamsters:cage_panel",
+    "count": 12
+  }
+}

@@ -11,7 +11,7 @@
 				}
 			}
 		},
-		"animation.sf_nba.hamster_wheel.spin": {
+		"animation.sf_hba.hamster_wheel.spin": {
 			"loop": true,
 			"animation_length": 1.79167,
 			"bones": {

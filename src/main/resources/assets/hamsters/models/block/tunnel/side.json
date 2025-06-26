@@ -1,0 +1,16 @@
+{
+	"textures": {
+		"side": "hamsters:block/side"
+	},
+	"elements": [
+		{
+			"from": [2, 2, 0],
+			"to": [14, 14, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [14, 2, 2, 14], "rotation": 90, "texture": "#side"},
+				"south": {"uv": [14, 2, 2, 14], "rotation": 90, "texture": "#side"}
+			}
+		}
+	]
+}

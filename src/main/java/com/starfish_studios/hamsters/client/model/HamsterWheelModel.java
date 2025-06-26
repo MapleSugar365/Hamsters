@@ -12,10 +12,14 @@ public class HamsterWheelModel extends DefaultedBlockGeoModel<HamsterWheelBlockE
     }
 
     @Override
+    public ResourceLocation getTextureResource(HamsterWheelBlockEntity hamsterWheel) {
+        return ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "textures/block/hamster_wheel/copper.png");
+    }
+
+    @Override
     public ResourceLocation getAnimationResource(HamsterWheelBlockEntity hamsterWheel) {
         return ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "animations/hamster_wheel.animation.json");
     }
-
 
     @Override
     public RenderType getRenderType(HamsterWheelBlockEntity animatable, ResourceLocation texture) {

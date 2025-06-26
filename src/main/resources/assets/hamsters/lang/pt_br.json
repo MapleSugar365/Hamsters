@@ -1,24 +1,20 @@
 {
-  "itemGroup.hamsters.tab": "Hamsters",
-  "item.hamsters.hamsters": "Hamsters",
-
-  "entity.hamsters.hamster": "Hamster",
-  "item.hamsters.hamster": "Hamster",
-
-  "tooltip.hamsters.white": "Branco",
-  "tooltip.hamsters.peaches_and_cream": "Pêssego e Creme",
-  "tooltip.hamsters.orange": "Laranja",
-  "tooltip.hamsters.grey_white": "Cinzento e Branco",
-  "tooltip.hamsters.brown": "Marrom",
-  "tooltip.hamsters.black_white": "Preto e Branco",
-  "tooltip.hamsters.black": "Preto",
-
-  "tooltip.hamsters.tamed": "Domesticado",
-  "tooltip.hamsters.baby": "Filhote",
+  "mod.hamsters": "Hamsters",
 
   "item.hamsters.hamster_spawn_egg": "Ovo gerador de Hamster",
-  "block.hamsters.tunnel": "Túnel",
+
+  "tooltip.hamsters.white": "Branco",
+  "tooltip.hamsters.cream": "Pêssego e Creme",
+  "tooltip.hamsters.champagne": "Laranja",
+  "tooltip.hamsters.silver_dove": "Cinzento e Branco",
+  "tooltip.hamsters.dove": "Marrom",
+  "tooltip.hamsters.chocolate": "Preto e Branco",
+  "tooltip.hamsters.black": "Preto",
+
+  "tooltip.hamsters.baby": "Filhote",
+
   "block.hamsters.hamster_wheel": "Roda de hamster",
+  "block.hamsters.tunnel": "Túnel",
 
   "hamsters.subtitles.hamster.ambient": "Hamster guincha",
   "hamsters.subtitles.hamster.hurt": "Hamster ferido",

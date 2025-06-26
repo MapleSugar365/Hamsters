@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "cage_panels",
+    "pattern": [
+        "###",
+        "#X#",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "tag": "hamsters:cage_panels"
+        },
+        "X": {
+            "item": "minecraft:blue_dye"
+        }
+    },
+    "result": {
+        "item": "hamsters:blue_cage_panel",
+        "count": 8
+    },
+    "show_notification": true
+}

@@ -1,50 +1,43 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "hamsters:item/hamster_orange"
+    "layer0": "hamsters:item/hamster/white"
   },
   "overrides": [
-    {
-      "predicate": {
-        "variant": 0
-      },
-      "model": "hamsters:item/hamsters/white"
-    },
-    {
-      "predicate": {
-        "variant": 0.142857143
-      },
-      "model": "hamsters:item/hamsters/peaches_and_cream"
-    },
-    {
-      "predicate": {
-        "variant": 0.285714286
-      },
-      "model": "hamsters:item/hamsters/orange"
-    },
-    {
-      "predicate": {
-        "variant": 0.428571429
-      },
-      "model": "hamsters:item/hamsters/grey_white"
-    },
-    {
-      "predicate": {
-        "variant": 0.571428571
-      },
-      "model": "hamsters:item/hamsters/brown"
-    },
-    {
-      "predicate": {
-        "variant": 0.714285714
-      },
-        "model": "hamsters:item/hamsters/black_white"
-    },
-    {
-      "predicate": {
-        "variant": 0.857142857
-      },
-        "model": "hamsters:item/hamsters/black"
-    }
+    {"predicate": {"variant": 0.0, "marking": 0.0}, "model": "hamsters:item/hamster/white"},
+    {"predicate": {"variant": 0.0, "marking": 0.2}, "model": "hamsters:item/hamster/white_banded"},
+    {"predicate": {"variant": 0.0, "marking": 0.4}, "model": "hamsters:item/hamster/white_spotted"},
+    {"predicate": {"variant": 0.0, "marking": 0.6}, "model": "hamsters:item/hamster/white_roan"},
+    {"predicate": {"variant": 0.0, "marking": 0.8}, "model": "hamsters:item/hamster/white_whitebelly"},
+    {"predicate": {"variant": 0.125, "marking": 0.0}, "model": "hamsters:item/hamster/cream"},
+    {"predicate": {"variant": 0.125, "marking": 0.2}, "model": "hamsters:item/hamster/cream_banded"},
+    {"predicate": {"variant": 0.125, "marking": 0.4}, "model": "hamsters:item/hamster/cream_spotted"},
+    {"predicate": {"variant": 0.125, "marking": 0.6}, "model": "hamsters:item/hamster/cream_roan"},
+    {"predicate": {"variant": 0.125, "marking": 0.8}, "model": "hamsters:item/hamster/cream_whitebelly"},
+    {"predicate": {"variant": 0.25, "marking": 0.0}, "model": "hamsters:item/hamster/champagne"},
+    {"predicate": {"variant": 0.25, "marking": 0.2}, "model": "hamsters:item/hamster/champagne_banded"},
+    {"predicate": {"variant": 0.25, "marking": 0.4}, "model": "hamsters:item/hamster/champagne_spotted"},
+    {"predicate": {"variant": 0.25, "marking": 0.6}, "model": "hamsters:item/hamster/champagne_roan"},
+    {"predicate": {"variant": 0.25, "marking": 0.8}, "model": "hamsters:item/hamster/champagne_whitebelly"},
+    {"predicate": {"variant": 0.375, "marking": 0.0}, "model": "hamsters:item/hamster/silver_dove"},
+    {"predicate": {"variant": 0.375, "marking": 0.2}, "model": "hamsters:item/hamster/silver_dove_banded"},
+    {"predicate": {"variant": 0.375, "marking": 0.4}, "model": "hamsters:item/hamster/silver_dove_spotted"},
+    {"predicate": {"variant": 0.375, "marking": 0.6}, "model": "hamsters:item/hamster/silver_dove_roan"},
+    {"predicate": {"variant": 0.375, "marking": 0.8}, "model": "hamsters:item/hamster/silver_dove_whitebelly"},
+    {"predicate": {"variant": 0.5, "marking": 0.0}, "model": "hamsters:item/hamster/dove"},
+    {"predicate": {"variant": 0.5, "marking": 0.2}, "model": "hamsters:item/hamster/dove_banded"},
+    {"predicate": {"variant": 0.5, "marking": 0.4}, "model": "hamsters:item/hamster/dove_spotted"},
+    {"predicate": {"variant": 0.5, "marking": 0.6}, "model": "hamsters:item/hamster/dove_roan"},
+    {"predicate": {"variant": 0.5, "marking": 0.8}, "model": "hamsters:item/hamster/dove_whitebelly"},
+    {"predicate": {"variant": 0.625, "marking": 0.0}, "model": "hamsters:item/hamster/chocolate"},
+    {"predicate": {"variant": 0.625, "marking": 0.2}, "model": "hamsters:item/hamster/chocolate_banded"},
+    {"predicate": {"variant": 0.625, "marking": 0.4}, "model": "hamsters:item/hamster/chocolate_spotted"},
+    {"predicate": {"variant": 0.625, "marking": 0.6}, "model": "hamsters:item/hamster/chocolate_roan"},
+    {"predicate": {"variant": 0.625, "marking": 0.8}, "model": "hamsters:item/hamster/chocolate_whitebelly"},
+    {"predicate": {"variant": 0.75, "marking": 0.0}, "model": "hamsters:item/hamster/black"},
+    {"predicate": {"variant": 0.75, "marking": 0.2}, "model": "hamsters:item/hamster/black_banded"},
+    {"predicate": {"variant": 0.75, "marking": 0.4}, "model": "hamsters:item/hamster/black_spotted"},
+    {"predicate": {"variant": 0.75, "marking": 0.6}, "model": "hamsters:item/hamster/black_roan"},
+    {"predicate": {"variant": 0.75, "marking": 0.8}, "model": "hamsters:item/hamster/black_whitebelly"}
   ]
 }

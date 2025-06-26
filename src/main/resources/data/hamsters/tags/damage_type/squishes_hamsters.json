@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#minecraft:is_fall",
+    "minecraft:falling_block",
+    "minecraft:falling_anvil",
+    "minecraft:falling_stalactite",
+    {"id": "endless_encore:falling_dragon_egg", "required": false}
+  ]
+}

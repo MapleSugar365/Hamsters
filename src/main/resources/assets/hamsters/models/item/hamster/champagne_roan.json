@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "hamsters:item/hamster/champagne",
+        "layer1": "hamsters:item/hamster/roan"
+    }
+}

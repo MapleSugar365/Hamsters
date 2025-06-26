@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class HamsterBowlBlock extends Block implements HamsterBlock, SimpleWaterloggedBlock {
 
-    private static final int seedsMinValue = 0, seedsMaxValue = 64;
+    private static final int seedsMinValue = 0, seedsMaxValue = 3;
 
     private static final IntegerProperty SEEDS = IntegerProperty.create("seeds", seedsMinValue, seedsMaxValue);
 
@@ -85,18 +85,17 @@ public class HamsterBowlBlock extends Block implements HamsterBlock, SimpleWater
     // region Interaction
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
-            Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.is(HamstersTags.HAMSTER_BOWL_FOOD) && state.getValue(SEEDS) < seedsMaxValue) {
-            if (!level.isClientSide) {
-                level.playSound(null, pos, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1.0F, 1.0F);
-                addSeeds(level, pos, state);
-                if (!player.getAbilities().instabuild)
-                    stack.shrink(1);
-            }
+    public ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos,
+            Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if (player.getItemInHand(interactionHand).is(HamstersTags.HAMSTER_BOWL_FOOD)
+                && blockState.getValue(SEEDS) < seedsMaxValue) {
+            level.playSound(player, blockPos, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1.0F, 1.0F);
+            addSeeds(level, blockPos, blockState);
+            if (!player.getAbilities().instabuild)
+                player.getItemInHand(interactionHand).shrink(1);
             return ItemInteractionResult.SUCCESS;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);
     }
 
     public static void addSeeds(Level level, BlockPos blockPos, BlockState blockState) {

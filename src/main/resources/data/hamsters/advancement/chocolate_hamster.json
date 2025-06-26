@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:husbandry/root",
+  "display": {
+    "icon": {
+      "item": "hamsters:chocolate_hamster"
+    },
+    "title": {
+      "translate": "advancements.chocolate_hamster.title"
+    },
+    "description": {
+      "translate": "advancements.chocolate_hamster.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "chocolate_hamster": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hamsters:chocolate_hamster"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "chocolate_hamster"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
