@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "hamsters:item/bowl/light_gray_bowl"
-    }
-}

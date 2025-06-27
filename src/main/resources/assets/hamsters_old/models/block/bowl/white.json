@@ -1,6 +1,0 @@
-{
-  "parent": "hamsters:block/template/bowl",
-  "textures": {
-    "all": "hamsters:block/bowl/white_bowl"
-  }
-}

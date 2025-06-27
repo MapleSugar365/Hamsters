@@ -25,7 +25,6 @@ public class HamstersEntityType {
                         "seat",
                         () -> EntityType.Builder.<SeatEntity>of(SeatEntity::new, MobCategory.MISC)
                                         .sized(0.0F, 0.0F)
-                                        .noSave()
                                         .noSummon()
                                         .build("seat"));
 }

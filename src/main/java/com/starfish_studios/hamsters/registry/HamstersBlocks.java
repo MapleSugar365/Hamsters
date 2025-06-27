@@ -40,15 +40,14 @@ public class HamstersBlocks {
 
         public static Block cagePanelBlock(DyeColor dyeColor) {
                 return new CagePanelBlock(BlockBehaviour.Properties.of().strength(0.3F).noOcclusion()
-                                .isSuffocating((state, world, pos) -> false).mapColor(dyeColor)
-                                .requiresCorrectToolForDrops());
+                                .isSuffocating((state, world, pos) -> false).mapColor(dyeColor));
         }
 
         // hamster wheel
         public static final Supplier<Block> HAMSTER_WHEEL = BLOCKS.register("hamster_wheel",
                         () -> new HamsterWheelBlock(BlockBehaviour.Properties.of().strength(0.6F).noOcclusion()
-                                        .isSuffocating((state, world, pos) -> false).pushReaction(PushReaction.IGNORE)
-                                        .requiresCorrectToolForDrops()));
+                                        .isSuffocating((state, world, pos) -> false)
+                                        .pushReaction(PushReaction.IGNORE)));
 
         // hamster bottles
         public static final Supplier<Block> WHITE_HAMSTER_BOTTLE = registerBlockItem("white_hamster_bottle",
