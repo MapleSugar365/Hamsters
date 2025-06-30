@@ -764,14 +764,14 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
                         if (this.getCheekLevel() >= 3 && hamstersBurst) {
                             this.setHealth(0);
                             this.playSound(HamstersSoundEvents.HAMSTER_EXPLODE.get());
-                            if (hamsterBurstStyle == BurstStyleEnum.CONFETTI) {
+                            if (hamstersBurstStyle == BurstStyleEnum.CONFETTI) {
                                 FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(this.level(), this,
                                         this.getX(), this.getEyeY(), this.getZ(), new ItemStack(Items.FIREWORK_ROCKET));
                                 fireworkRocketEntity.setSilent(true);
                                 fireworkRocketEntity.setInvisible(true);
                                 this.level().addFreshEntity(fireworkRocketEntity);
                                 fireworkRocketEntity.setDeltaMovement(0.0D, 0.0D, 0.0D);
-                            } else if (hamsterBurstStyle == BurstStyleEnum.EXPLOSION) {
+                            } else if (hamstersBurstStyle == BurstStyleEnum.EXPLOSION) {
                                 if (this.level() instanceof ServerLevel serverLevel)
                                     serverLevel.sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(),
                                             this.getZ(), 5, 0.0D, 0.0D, 0.0D, 0.0D);

@@ -8,7 +8,6 @@ import com.starfish_studios.hamsters.block.HamsterWheelBlock;
 import com.starfish_studios.hamsters.block.HamsterBottleBlock;
 import com.starfish_studios.hamsters.block.HamsterBowlBlock;
 import com.starfish_studios.hamsters.block.CagePanelBlock;
-import com.starfish_studios.hamsters.block.HamsterBedBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -166,9 +165,6 @@ public class HamstersBlocks {
                         LIGHT_GRAY_CAGE_PANEL, GRAY_CAGE_PANEL, BLACK_CAGE_PANEL, BROWN_CAGE_PANEL, RED_CAGE_PANEL,
                         ORANGE_CAGE_PANEL, YELLOW_CAGE_PANEL, LIME_CAGE_PANEL, GREEN_CAGE_PANEL, CYAN_CAGE_PANEL,
                         LIGHT_BLUE_CAGE_PANEL, BLUE_CAGE_PANEL, PURPLE_CAGE_PANEL, MAGENTA_CAGE_PANEL, PINK_CAGE_PANEL);
-
-        public static final Supplier<Block> HAMSTER_BED = BLOCKS.register("hamster_bed",
-                        () -> new HamsterBedBlock(BlockBehaviour.Properties.of().strength(0.2F).noOcclusion()));
 
         // public static final Block TUNNEL = register("tunnel", new
         // TunnelBlock(FabricBlockSettings.copyOf(Blocks.GREEN_STAINED_GLASS)));

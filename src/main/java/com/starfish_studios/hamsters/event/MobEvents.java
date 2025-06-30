@@ -1,6 +1,5 @@
-package com.starfish_studios.hamsters.events;
+package com.starfish_studios.hamsters.event;
 
-import com.starfish_studios.hamsters.Hamsters;
 import com.starfish_studios.hamsters.entity.Hamster;
 import com.starfish_studios.hamsters.registry.HamstersEntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -10,7 +9,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = Hamsters.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class MobEvents {
 
     @SubscribeEvent
@@ -21,8 +20,7 @@ public class MobEvents {
     @SubscribeEvent
     public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
         event.register(HamstersEntityType.HAMSTER.get(), SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.WORLD_SURFACE_WG, Hamster::checkHamsterSpawnRules,
-                RegisterSpawnPlacementsEvent.Operation.OR);
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hamster::checkHamsterSpawnRules,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
-
 }

@@ -41,13 +41,13 @@ public class HamsterWheelBlockEntity extends GeneratingKineticBlockEntity implem
     public float getGeneratedSpeed() {
         if (this.level != null && this.getBlockState().getBlock() instanceof HamsterWheelBlock
                 && HamsterWheelBlock.isOccupied(this.level, this.getBlockPos()))
-            return -25;
+            return -32;
         return 0;
     }
 
     @Override
     public float calculateAddedStressCapacity() {
-        return getGeneratedSpeed() != 0 ? 10.0f : 0;
+        return getGeneratedSpeed() != 0 ? 8.0f : 0;
     }
 
     // endregion

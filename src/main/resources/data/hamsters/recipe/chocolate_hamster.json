@@ -1,4 +1,26 @@
 {
-  "type": "minecraft:chocolate_hamster",
-  "category": "misc"
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "misc",
+    "pattern": [
+        "SCS",
+        "CDC",
+        "SCS"
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:sugar"
+        },
+        "C": {
+            "item": "minecraft:cocoa_beans"
+        },
+        "D": {
+            "item": "minecraft:diamond"
+        }
+    },
+    "result": {
+        "id": "hamsters:chocolate_hamster",
+        "count": 1
+    },
+    "show_notification": true
 }

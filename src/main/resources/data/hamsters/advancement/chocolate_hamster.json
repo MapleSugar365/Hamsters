@@ -2,7 +2,7 @@
   "parent": "minecraft:husbandry/root",
   "display": {
     "icon": {
-      "item": "hamsters:chocolate_hamster"
+      "id": "hamsters:chocolate_hamster"
     },
     "title": {
       "translate": "advancements.chocolate_hamster.title"

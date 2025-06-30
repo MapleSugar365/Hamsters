@@ -11,7 +11,8 @@
     }
   },
   "result": {
-    "item": "hamsters:cage_panel",
+    "id": "hamsters:cage_panel",
     "count": 12
-  }
+  },
+  "show_notification": true
 }

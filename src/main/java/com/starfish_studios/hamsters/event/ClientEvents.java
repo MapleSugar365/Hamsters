@@ -1,6 +1,5 @@
-package com.starfish_studios.hamsters.events;
+package com.starfish_studios.hamsters.event;
 
-import com.starfish_studios.hamsters.Hamsters;
 import com.starfish_studios.hamsters.client.renderer.HamsterRenderer;
 import com.starfish_studios.hamsters.client.renderer.HamsterWheelRenderer;
 import com.starfish_studios.hamsters.client.renderer.SeatRenderer;
@@ -18,7 +17,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
-@EventBusSubscriber(modid = Hamsters.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {

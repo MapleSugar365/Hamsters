@@ -22,9 +22,10 @@ public class HamstersCreativeModeTab {
                             .title(Component.translatable("itemGroup.hamsters.tab"))
                             .displayItems((featureFlagSet, output) -> {
                                 // other items
+                                output.accept(HAMSTER.get());
+                                output.accept(CHOCOLATE_HAMSTER.get());
                                 output.accept(HamstersItems.HAMSTER_WHEEL.get());
                                 output.accept(HAMSTER_SPAWN_EGG.get());
-                                // output.accept(HamstersItems.HAMSTER_BED.get());
                                 // hamster bottles
                                 for (Supplier<Block> hamsterBottle : HAMSTER_BOTTLES) {
                                     output.accept(hamsterBottle.get());
@@ -37,13 +38,5 @@ public class HamstersCreativeModeTab {
                                 for (Supplier<Block> cagePanel : CAGE_PANELS) {
                                     output.accept(cagePanel.get());
                                 }
-                                // for (int i = 0; i <= 6; i++) {
-                                // ItemStack stack = new ItemStack(HAMSTER.get());
-                                // CompoundTag variantTag = new CompoundTag();
-                                // variantTag.putInt("Variant", i);
-                                // output.accept(stack);
-                                // }
-
                             }).build());
-
 }

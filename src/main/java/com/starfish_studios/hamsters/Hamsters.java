@@ -11,19 +11,17 @@ public class Hamsters {
 	public static final String MOD_ID = "hamsters";
 
 	public Hamsters(IEventBus modEventBus, ModContainer modContainer) {
-
 		HamstersBlocks.BLOCKS.register(modEventBus);
 		HamstersBlockEntities.BLOCK_ENTITY_TYPES.register(modEventBus);
 		HamstersCreativeModeTab.CREATIVE_MODE_TABS.register(modEventBus);
 		HamstersItems.ITEMS.register(modEventBus);
 		HamstersEntityType.ENTITY_TYPES.register(modEventBus);
 		HamstersSoundEvents.SOUND_EVENTS.register(modEventBus);
-
 		modEventBus.addListener(this::commonSetup);
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {
-		event.enqueueWork(HamstersVanillaIntegration::serverInit);
+		event.enqueueWork(HamstersVanillaIntegration::configInit);
 	}
 
 }

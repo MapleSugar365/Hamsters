@@ -1,7 +1,21 @@
 {
   "values": [
-    "#c:plains",
-    "#c:tree_deciduous",
-    "#c:is_dry/overworld"
+    "minecraft:taiga",
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:meadow",
+    "minecraft:grove",
+    "minecraft:savanna",
+    "minecraft:windswept_savanna",
+    "minecraft:jungle",
+    "minecraft:cherry_grove",
+    "minecraft:wooded_badlands",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:windswept_forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:forest",
+    "minecraft:lush_caves"
   ]
 }

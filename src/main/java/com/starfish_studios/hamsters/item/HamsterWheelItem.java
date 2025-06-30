@@ -12,7 +12,6 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.model.DefaultedBlockGeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
 import java.util.function.Consumer;
 
 public class HamsterWheelItem extends BlockItem implements GeoItem {
@@ -32,16 +31,10 @@ public class HamsterWheelItem extends BlockItem implements GeoItem {
                 if (this.renderer == null)
                     this.renderer = new GeoItemRenderer<>(new DefaultedBlockGeoModel<>(
                             ResourceLocation.fromNamespaceAndPath(Hamsters.MOD_ID, "hamster_wheel")));
-
                 return this.renderer;
             }
         });
     }
-
-    // @Override
-    // public Supplier<Object> getRenderProvider() {
-    // return this.renderProvider;
-    // }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
