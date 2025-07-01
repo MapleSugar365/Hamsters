@@ -2,5 +2,6 @@
     "parent": "hamsters:block/template/bowl",
     "textures": {
         "all": "hamsters:block/bowl/purple_bowl"
-    }
+    },
+    "render_type": "cutout"
 }

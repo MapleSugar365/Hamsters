@@ -16,5 +16,6 @@
 				"down": {"uv": [0, 15, 16, 16], "texture": "#all", "cullface": "down"}
 			}
 		}
-	]
+	],
+    "render_type": "cutout"
 }

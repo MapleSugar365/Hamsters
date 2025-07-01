@@ -110,16 +110,13 @@ public class HamsterWheelBlock extends DirectionalKineticBlock
 
     // region Interaction
 
-    public boolean isMountable() {
-        return true;
-    }
-
     public static boolean isOccupied(Level level, BlockPos blockPos) {
         return !level.getEntitiesOfClass(SeatEntity.class, new AABB(blockPos)).isEmpty();
     }
 
-    public float setRiderRotation(Entity entity) {
-        return entity.getYRot();
+    public float setRiderRotation(BlockState state) {
+        Direction facing = state.getValue(FACING);
+        return facing.getCounterClockWise().toYRot();
     }
 
     public static Optional<Entity> getLeashed(Player player) {
@@ -146,14 +143,18 @@ public class HamsterWheelBlock extends DirectionalKineticBlock
     }
 
     public static void sitDown(Level level, BlockPos blockPos, Entity entity) {
-
         if (level.isClientSide() || entity == null)
             return;
-
+        List<SeatEntity> existingSeats = level.getEntitiesOfClass(SeatEntity.class, new AABB(blockPos));
+        if (!existingSeats.isEmpty()) {
+            SeatEntity seat = existingSeats.get(0);
+            if (seat.isVehicle()) {
+                return;
+            }
+        }
         SeatEntity seatEntity = new SeatEntity(level, blockPos);
         level.addFreshEntity(seatEntity);
         entity.startRiding(seatEntity);
-
         level.updateNeighbourForOutputSignal(blockPos, level.getBlockState(blockPos).getBlock());
     }
 
@@ -162,7 +163,7 @@ public class HamsterWheelBlock extends DirectionalKineticBlock
             BlockHitResult hitResult) {
         InteractionResult original = super.useWithoutItem(state, level, pos, player, hitResult);
         if (level.mayInteract(player, pos) && player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() &&
-                !player.isShiftKeyDown() && !player.isPassenger() && this.isMountable()) {
+                !player.isShiftKeyDown() && !player.isPassenger()) {
             if (isOccupied(level, pos)) {
                 List<SeatEntity> seatEntities = level.getEntitiesOfClass(SeatEntity.class, new AABB(pos));
                 if (!seatEntities.isEmpty() && ejectSeatedExceptPlayer(level, seatEntities.get(0))) {

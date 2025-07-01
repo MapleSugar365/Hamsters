@@ -60,12 +60,10 @@ public class HamsterWheelBlockEntity extends GeneratingKineticBlockEntity implem
     }
 
     private <E extends HamsterWheelBlockEntity> PlayState controller(final AnimationState<E> event) {
-
         if (this.level != null && HamsterWheelBlock.isOccupied(this.level, this.getBlockPos())) {
             event.getController().setAnimation(SPIN);
             return PlayState.CONTINUE;
         }
-
         return PlayState.STOP;
     }
 

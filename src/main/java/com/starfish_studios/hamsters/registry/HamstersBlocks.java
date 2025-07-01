@@ -165,8 +165,4 @@ public class HamstersBlocks {
                         LIGHT_GRAY_CAGE_PANEL, GRAY_CAGE_PANEL, BLACK_CAGE_PANEL, BROWN_CAGE_PANEL, RED_CAGE_PANEL,
                         ORANGE_CAGE_PANEL, YELLOW_CAGE_PANEL, LIME_CAGE_PANEL, GREEN_CAGE_PANEL, CYAN_CAGE_PANEL,
                         LIGHT_BLUE_CAGE_PANEL, BLUE_CAGE_PANEL, PURPLE_CAGE_PANEL, MAGENTA_CAGE_PANEL, PINK_CAGE_PANEL);
-
-        // public static final Block TUNNEL = register("tunnel", new
-        // TunnelBlock(FabricBlockSettings.copyOf(Blocks.GREEN_STAINED_GLASS)));
-
 }

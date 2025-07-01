@@ -129,39 +129,24 @@ public class CagePanelBlock extends Block implements HamsterBlock, SimpleWaterlo
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockPos abovePos = pos.above();
-
         if (stack.is(HamstersTags.CAGE_PANEL_ITEMS) && level.getBlockState(abovePos).is(BlockTags.REPLACEABLE)) {
             if (!(stack.getItem() instanceof BlockItem blockItem)) {
-                // 返回默认行为
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             }
-
-            // 创建新方块状态
             BlockState newState = blockItem.getBlock().defaultBlockState()
                     .setValue(FACING, state.getValue(FACING))
                     .setValue(WATERLOGGED, level.getFluidState(abovePos).is(FluidTags.WATER));
-
-            // 放置方块并更新
             level.setBlockAndUpdate(abovePos, newState);
-
-            // 播放音效
             SoundType soundType = newState.getSoundType();
             level.playSound(null, pos, soundType.getPlaceSound(), SoundSource.BLOCKS,
                     (soundType.getVolume() + 1.0F) / 2.0F,
                     soundType.getPitch() * 0.8F);
-
-            // 触发游戏事件
             level.gameEvent(player, GameEvent.BLOCK_PLACE, abovePos);
-
-            // 消耗物品（可选）
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
             }
-
             return ItemInteractionResult.SUCCESS;
         }
-
-        // 默认行为
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 

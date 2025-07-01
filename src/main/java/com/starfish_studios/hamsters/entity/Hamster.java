@@ -87,6 +87,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -165,7 +166,6 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
             }
         });
         this.goalSelector.addGoal(12, new HamsterLookAroundGoal(this));
-
         if (this.isTame()) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Creeper.class, true));
         }
@@ -610,9 +610,11 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
             else
                 this.setDefaultSleepingCooldown();
         }
-
-        if (this.isInWheel() && this.getCheekLevel() > 0 && this.tickCount % 100 == 0)
-            this.setCheekLevel(this.getCheekLevel() - 1);
+        if (this.isInWheel()) {
+            this.setTargetRotationInWheel();
+            if (this.getCheekLevel() > 0 && this.tickCount % 100 == 0)
+                this.setCheekLevel(this.getCheekLevel() - 1);
+        }
         if (this.getDrinkingCooldownTicks() > 0)
             this.setDrinkingCooldownTicks(this.getDrinkingCooldownTicks() - 1);
         if (this.getMountingCooldownTicks() > 0)
@@ -688,6 +690,20 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
                     this.getRandomZ(1.0), 5, 0.0D, 0.0D, 0.0D, 0.0D);
     }
 
+    private void setTargetRotationInWheel() {
+        Entity vehicle = this.getVehicle();
+        if (vehicle instanceof SeatEntity seat) {
+            BlockState state = seat.level().getBlockState(seat.blockPosition());
+            if (state.getBlock() instanceof HamsterWheelBlock hamsterWheelBlock) {
+                float targetYRot = hamsterWheelBlock.setRiderRotation(state);
+                this.setYRot(targetYRot);
+                this.yRotO = targetYRot;
+                this.setYHeadRot(targetYRot);
+                this.yHeadRotO = targetYRot;
+            }
+        }
+    }
+
     @Override
     public boolean startRiding(@NotNull Entity entity) {
         boolean original = super.startRiding(entity);
@@ -695,7 +711,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
             this.setSleeping(false);
             this.setOrderedToSit(false);
             this.setInSittingPose(false);
-            this.setDismountingCooldownTicks(200);
+            this.setDismountingCooldownTicks(hamstersInWheelTime * 20);
         }
         return original;
     }
@@ -706,7 +722,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
             this.setSleeping(false);
             this.setOrderedToSit(false);
             this.setInSittingPose(false);
-            this.setMountingCooldownTicks(200);
+            this.setMountingCooldownTicks(hamstersFeedingInterval * 20);
         }
         super.stopRiding();
     }
@@ -1292,9 +1308,17 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
             super.tick();
             BlockPos hamsterWheel = this.getPosWithBlock(this.mob.blockPosition(), this.mob.level());
             if (hamsterWheel != null && this.mob.position().distanceTo(Vec3.atBottomCenterOf(hamsterWheel)) <= 1.0D) {
+                if (HamsterWheelBlock.isOccupied(this.mob.level(), hamsterWheel)) {
+                    List<SeatEntity> seats = this.mob.level().getEntitiesOfClass(SeatEntity.class,
+                            new AABB(hamsterWheel));
+                    if (!seats.isEmpty() && seats.get(0).isVehicle()) {
+                        this.stop();
+                        return;
+                    }
+                }
                 Hamster.this.setDefaultSleepingCooldown();
                 HamsterWheelBlock.sitDown(this.mob.level(), hamsterWheel, this.mob);
-                Hamster.this.setMountingCooldownTicks(100);
+                Hamster.this.setMountingCooldownTicks(hamstersFeedingInterval * 20);
                 this.stop();
             }
         }

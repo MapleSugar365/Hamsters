@@ -28,7 +28,4 @@ public class HamstersItems {
         public static final Supplier<Item> CHOCOLATE_HAMSTER = ITEMS.register("chocolate_hamster",
                         () -> new ChocolateHamsterItem(new Item.Properties().stacksTo(1)
                                         .food(new FoodProperties.Builder().nutrition(20).saturationModifier(0.9F).build())));
-
-        // public static final DeferredItem<Item> TUNNEL = ITEMS.register("tunnel", new
-        // BlockItem () ->(HamstersBlocks.TUNNEL, new FabricItemSettings()));
 }

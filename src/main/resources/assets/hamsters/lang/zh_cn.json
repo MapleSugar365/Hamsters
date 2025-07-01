@@ -88,6 +88,10 @@
   "hamsters.subtitles.hamster.place": "仓鼠：被放下",
 
   "hamsters.midnightconfig.title": "§7仓鼠模组设置",
+  "hamsters.midnightconfig.hamstersInWheelTime": "§7跑轮时长（秒）",
+  "hamsters.midnightconfig.hamstersInWheelTime.tooltip": "§8§o[?]§7§o 控制仓鼠每次在仓鼠轮中的奔跑时长。",
+  "hamsters.midnightconfig.hamstersFeedingInterval": "§7进食间隔（秒）",
+  "hamsters.midnightconfig.hamstersFeedingInterval.tooltip": "§8§o[?]§7§o 控制仓鼠与仓鼠水瓶或仓鼠食槽互动的时间间隔（附近有水瓶或食槽时）。",
   "hamsters.midnightconfig.hamstersSquish": "§7可被压扁",
   "hamsters.midnightconfig.hamstersSquish.tooltip": "§8§o[?]§7§o 仓鼠是否可以被玩家、铁砧、下落的方块等压扁。",
   "hamsters.midnightconfig.jumpHurtsHamsters": "§7踩踏伤害",
@@ -95,7 +99,7 @@
   "hamsters.midnightconfig.hamstersBurst": "§7可被撑死",
   "hamsters.midnightconfig.hamstersBurst.tooltip": "§8§o[?]§7§o 仓鼠在被过度喂食后是否会被撑死。",
   "hamsters.midnightconfig.hamstersBurstStyle": "§7撑死效果",
-  "hamsters.midnightconfig.hamstersBurstStyle.tooltip": "§8§o[?]§7§o 仓鼠撑死时产生的效果类型。",
+  "hamsters.midnightconfig.hamstersBurstStyle.tooltip": "§8§o[?]§7§o 仓鼠撑死时产生的效果类型。\n 烟花飞升：撑死时仓鼠变为一支燃放的烟花；\n原地爆炸： 撑死时仓鼠原地爆炸……\n真爆炸啊 ＞﹏＜",
   "hamsters.midnightconfig.enum.BurstStyleEnum.CONFETTI": "烟花飞升",
   "hamsters.midnightconfig.enum.BurstStyleEnum.EXPLOSION": "原地爆炸"
 }

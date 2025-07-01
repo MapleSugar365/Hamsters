@@ -9,5 +9,4 @@ public class HamsterBottleBlockEntity extends BlockEntity{
     public HamsterBottleBlockEntity(BlockPos pos, BlockState state) {
         super(HamstersBlockEntities.HAMSTER_BOTTLE.get(), pos, state);
     }
-    
 }

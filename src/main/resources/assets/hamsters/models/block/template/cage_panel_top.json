@@ -1,5 +1,6 @@
 {
 	"textures": {
 		"particle": "hamsters:block/cage_panel/blue"
-	}
+	},
+    "render_type": "cutout"
 }

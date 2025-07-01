@@ -2,5 +2,6 @@
     "parent": "hamsters:block/template/bottle",
     "textures": {
         "all": "hamsters:block/bottle/magenta_bottle"
-    }
+    },
+    "render_type": "cutout"
 }

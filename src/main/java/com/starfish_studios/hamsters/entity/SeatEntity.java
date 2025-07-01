@@ -1,6 +1,5 @@
 package com.starfish_studios.hamsters.entity;
 
-import com.starfish_studios.hamsters.block.HamsterWheelBlock;
 import com.starfish_studios.hamsters.entity.util.RideableHamsterEntity;
 import com.starfish_studios.hamsters.registry.HamstersEntityType;
 import net.minecraft.core.BlockPos;
@@ -58,20 +57,10 @@ public class SeatEntity extends Entity implements RideableHamsterEntity {
 
     @Override
     public void tick() {
-
         if (this.level().isClientSide())
             return;
-
-        boolean canMount;
-
-        if (this.level().getBlockState(this.blockPosition()).getBlock() instanceof HamsterWheelBlock hamsterWheelBlock)
-            canMount = hamsterWheelBlock.isMountable();
-        else
-            canMount = false;
-
-        if (this.isVehicle() && canMount)
+        if (this.isVehicle())
             return;
-
         this.discard();
         this.level().updateNeighbourForOutputSignal(this.blockPosition(),
                 this.level().getBlockState(this.blockPosition()).getBlock());
@@ -89,8 +78,6 @@ public class SeatEntity extends Entity implements RideableHamsterEntity {
 
     @Override
     protected void addPassenger(@NotNull Entity passenger) {
-        if (this.level().getBlockState(this.blockPosition()).getBlock() instanceof HamsterWheelBlock hamsterWheelBlock)
-            passenger.setYRot(hamsterWheelBlock.setRiderRotation(passenger));
         super.addPassenger(passenger);
     }
 

@@ -3,5 +3,6 @@
     "textures": {
         "all": "hamsters:block/cage/blue_cage_top",
         "particle": "hamsters:block/cage/blue_cage_middle"
-    }
+    },
+    "render_type": "cutout"
 }

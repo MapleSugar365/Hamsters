@@ -88,6 +88,10 @@
   "hamsters.subtitles.hamster.place": "Hamster placed",
 
   "hamsters.midnightconfig.title": "§7Hamsters",
+  "hamsters.midnightconfig.hamstersInWheelTime": "§7Hamsters In Wheel Time(Second)",
+  "hamsters.midnightconfig.hamstersInWheelTime.tooltip": "§8§o[?]§7§o Controlling duration of each hamster's running session in the wheel.",
+  "hamsters.midnightconfig.hamstersFeedingInterval": "§7Hamsters Feeding Interval(Second)",
+  "hamsters.midnightconfig.hamstersFeedingInterval.tooltip": "§8§o[?]§7§o Controlling Interaction Intervals Between Hamsters and Water Bottles/Feeding Troughs(When there is a water bottle or bowl nearby).",
   "hamsters.midnightconfig.hamstersSquish": "§7Hamsters Squish",
   "hamsters.midnightconfig.hamstersSquish.tooltip": "§8§o[?]§7§o If Hamsters can be squished by players, anvils, falling blocks, etc.",
   "hamsters.midnightconfig.jumpHurtsHamsters": "§7Jump Hurts Hamsters",
@@ -95,7 +99,7 @@
   "hamsters.midnightconfig.hamstersBurst": "§7Hamsters Burst",
   "hamsters.midnightconfig.hamstersBurst.tooltip": "§8§o[?]§7§o If Hamsters will burst upon being overfed.",
   "hamsters.midnightconfig.hamstersBurstStyle": "§7Hamster Burst Style",
-  "hamsters.midnightconfig.hamstersBurstStyle.tooltip": "§8§o[?]§7§o The explosion effect of Hamsters bursting.",
+  "hamsters.midnightconfig.hamstersBurstStyle.tooltip": "§8§o[?]§7§o The explosion effect of Hamsters bursting:\nConfetti: Upon overeating, the hamster transforms into a lit firework;\nExplosion: Upon overeating, the hamster explodes right where it stands...\nLiterally explodes ＞﹏＜",
   "hamsters.midnightconfig.enum.BurstStyleEnum.CONFETTI": "Confetti",
   "hamsters.midnightconfig.enum.BurstStyleEnum.EXPLOSION": "Explosion"
 }
