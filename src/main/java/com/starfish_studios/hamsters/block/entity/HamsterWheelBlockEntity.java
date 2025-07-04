@@ -4,6 +4,7 @@ import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.starfish_studios.hamsters.block.HamsterWheelBlock;
 import com.starfish_studios.hamsters.registry.HamstersBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -40,8 +41,12 @@ public class HamsterWheelBlockEntity extends GeneratingKineticBlockEntity implem
     @Override
     public float getGeneratedSpeed() {
         if (this.level != null && this.getBlockState().getBlock() instanceof HamsterWheelBlock
-                && HamsterWheelBlock.isOccupied(this.level, this.getBlockPos()))
-            return -32;
+                && HamsterWheelBlock.isOccupied(this.level, this.getBlockPos())) {
+            Direction facing = this.getBlockState().getValue(HamsterWheelBlock.FACING);
+            if (facing == Direction.SOUTH || facing == Direction.EAST)
+                return -32;
+            return 32;
+        }
         return 0;
     }
 

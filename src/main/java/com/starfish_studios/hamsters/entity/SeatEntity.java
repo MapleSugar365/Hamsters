@@ -1,5 +1,6 @@
 package com.starfish_studios.hamsters.entity;
 
+import com.starfish_studios.hamsters.block.HamsterWheelBlock;
 import com.starfish_studios.hamsters.entity.util.RideableHamsterEntity;
 import com.starfish_studios.hamsters.registry.HamstersEntityType;
 import net.minecraft.core.BlockPos;
@@ -59,7 +60,7 @@ public class SeatEntity extends Entity implements RideableHamsterEntity {
     public void tick() {
         if (this.level().isClientSide())
             return;
-        if (this.isVehicle())
+        if (this.isVehicle() && this.level().getBlockState(this.blockPosition()).getBlock() instanceof HamsterWheelBlock)
             return;
         this.discard();
         this.level().updateNeighbourForOutputSignal(this.blockPosition(),

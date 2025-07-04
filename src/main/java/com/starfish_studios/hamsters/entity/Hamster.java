@@ -62,7 +62,7 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+// import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
@@ -99,6 +99,8 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -268,7 +270,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
         builder.define(COLLAR_COLOR, 0);
         builder.define(CHEEK_LEVEL, 0);
         builder.define(DRINKING_COOLDOWN_TICKS, 0);
-        builder.define(SLEEP_COOLDOWN_TICKS, 200);
+        builder.define(SLEEP_COOLDOWN_TICKS, 300);
         builder.define(MOUNTING_COOLDOWN_TICKS, 0);
         builder.define(DISMOUNTING_COOLDOWN_TICKS, 0);
         builder.define(BIRTH_COUNTDOWN, 0);
@@ -367,7 +369,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
     }
 
     private void setDefaultDrinkingCooldown() {
-        this.setDrinkingCooldownTicks(200);
+        this.setDrinkingCooldownTicks(hamstersFeedingInterval * 20);
     }
 
     public int getSleepCooldownTicks() {
@@ -379,7 +381,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
     }
 
     private void setDefaultSleepingCooldown() {
-        this.setSleepingCooldownTicks(200);
+        this.setSleepingCooldownTicks(300);
     }
 
     private int getMountingCooldownTicks() {
@@ -563,8 +565,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
     @Override
     public void aiStep() {
         super.aiStep();
-        long dayTime = this.level().getDayTime();
-        if (this.isSleeping() && dayTime >= 12000 && dayTime < 23000) {
+        if (this.isSleeping() && sleepTime()) {
             this.setSleeping(false);
         }
 
@@ -722,7 +723,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
             this.setSleeping(false);
             this.setOrderedToSit(false);
             this.setInSittingPose(false);
-            this.setMountingCooldownTicks(hamstersFeedingInterval * 20);
+            this.setMountingCooldownTicks(hamstersRestTime * 20);
         }
         super.stopRiding();
     }
@@ -1021,8 +1022,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
 
     @Override
     public boolean canSleep() {
-        long dayTime = this.level().getDayTime();
-        if (dayTime > 12000 && dayTime < 23000)
+        if (sleepTime())
             return false;
         return this.getSleepCooldownTicks() <= 0
                 && getNearbyAvoidedEntities(this).isEmpty()
@@ -1033,17 +1033,37 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
                 && !level().isThundering();
     }
 
-    public static List<LivingEntity> getNearbyAvoidedEntities(LivingEntity livingEntity) {
-        List<LivingEntity> emptyList = List.of();
-        if (!(livingEntity instanceof Hamster hamster))
-            return emptyList;
-        List<LivingEntity> nearbyEntities = hamster.level().getNearbyEntities(LivingEntity.class,
-                TargetingConditions.forNonCombat().range(10.0D), hamster,
-                hamster.getBoundingBox().inflate(8.0D, 2.0D, 8.0D));
-        if (!nearbyEntities.isEmpty() && nearbyEntities.get(0) instanceof Player player &&
-                (hamster.isTame() || player.isCreative()))
-            return emptyList;
-        return nearbyEntities;
+    // public static List<LivingEntity> getNearbyAvoidedEntities(LivingEntity
+    // livingEntity) {
+    // List<LivingEntity> emptyList = List.of();
+    // if (!(livingEntity instanceof Hamster hamster))
+    // return emptyList;
+    // List<LivingEntity> nearbyEntities =
+    // hamster.level().getNearbyEntities(LivingEntity.class,
+    // TargetingConditions.forNonCombat().range(5.0D), hamster,
+    // hamster.getBoundingBox().inflate(4.0D, 2.0D, 4.0D));
+    // if (!nearbyEntities.isEmpty()) {
+    // LivingEntity nearestEntity = nearbyEntities.get(0);
+    // if (nearestEntity instanceof Player player &&
+    // (hamster.isTame() || player.isCreative())) {
+    // return emptyList;
+    // }
+    // if (nearestEntity instanceof Hamster) {
+    // return emptyList;
+    // }
+    // }
+    // return nearbyEntities;
+    // }
+
+    public static List<Entity> getNearbyAvoidedEntities(Hamster hamster) {
+        List<Entity> validEntities = new ArrayList<>();
+        Level level = hamster.level();
+        for (Entity entity : level.getEntities(hamster, hamster.getBoundingBox().inflate(4.0D))) {
+            if (entity instanceof Player || entity instanceof Hamster || entity instanceof ItemEntity)
+                continue;
+            validEntities.add(entity);
+        }
+        return validEntities;
     }
 
     private boolean isInFluid() {
@@ -1059,6 +1079,16 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
     private boolean canUseMovementGoals() {
         return this.getSquishedTicks() <= 0 && !this.isSleeping();
     }
+
+    private boolean sleepTime() {
+        long dayTime = this.level().getDayTime() % 24000;
+        if (dayTime >= 0 && dayTime < 12000)
+            return !hamstersSleepDuringTheDay;
+        if (dayTime >= 12000 && dayTime <= 24000)
+            return !hamstersSleepAtNight;
+        return false;
+    }
+
     // endregion
 
     // region Goals
@@ -1212,7 +1242,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
         }
 
         private boolean canEatFromBowl() {
-            return Hamster.this.getCheekLevel() <= 0;
+            return Hamster.this.getCheekLevel() <= 0 && Hamster.this.getDrinkingCooldownTicks() <= 0;
         }
 
         @Override
@@ -1283,9 +1313,13 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
             return HamstersTags.HAMSTER_WHEELS;
         }
 
+        private boolean canGoToWheel() {
+            return Hamster.this.getMountingCooldownTicks() <= 0;
+        }
+
         @Override
         public boolean canUse() {
-            return super.canUse();
+            return super.canUse() && this.canGoToWheel();
         }
 
         @Override
@@ -1306,6 +1340,8 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
         @Override
         public void tick() {
             super.tick();
+            if (!canGoToWheel())
+                return;
             BlockPos hamsterWheel = this.getPosWithBlock(this.mob.blockPosition(), this.mob.level());
             if (hamsterWheel != null && this.mob.position().distanceTo(Vec3.atBottomCenterOf(hamsterWheel)) <= 1.0D) {
                 if (HamsterWheelBlock.isOccupied(this.mob.level(), hamsterWheel)) {
@@ -1318,7 +1354,7 @@ public class Hamster extends TamableAnimal implements GeoEntity, SleepingAnimal 
                 }
                 Hamster.this.setDefaultSleepingCooldown();
                 HamsterWheelBlock.sitDown(this.mob.level(), hamsterWheel, this.mob);
-                Hamster.this.setMountingCooldownTicks(hamstersFeedingInterval * 20);
+                Hamster.this.setMountingCooldownTicks(hamstersRestTime * 20);
                 this.stop();
             }
         }
