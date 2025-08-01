@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#d ",
+        "   ",
+        "   "
+    ],
+    "key": {
+        "d": {
+            "item": "minecraft:orange_dye"
+        },
+        "#": {
+            "tag": "hamsters:hamster_bowls"
+        }
+    },
+    "result": {
+        "id": "hamsters:orange_hamster_bowl",
+        "count": 1
+    },
+    "show_notification": true
+}

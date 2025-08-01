@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#d ",
+        "   ",
+        "   "
+    ],
+    "key": {
+        "d": {
+            "item": "minecraft:magenta_dye"
+        },
+        "#": {
+            "tag": "hamsters:hamster_bottles"
+        }
+    },
+    "result": {
+        "id": "hamsters:magenta_hamster_bottle",
+        "count": 1
+    },
+    "show_notification": true
+}

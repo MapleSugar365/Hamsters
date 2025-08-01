@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "iii",
+        "ipi",
+        "iii"
+    ],
+    "key": {
+        "p": {
+            "item": "minecraft:potion"
+        },
+        "i": {
+            "item": "minecraft:iron_nugget"
+        }
+    },
+    "result": {
+        "id": "hamsters:white_hamster_bottle",
+        "count": 1
+    },
+    "show_notification": true
+}
