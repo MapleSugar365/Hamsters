@@ -105,12 +105,8 @@ configurations {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
-    implementation "maven.modrinth:create:${create_id}"
     implementation "maven.modrinth:geckolib:${geckolib_id}"
     implementation "maven.modrinth:midnightlib:${midnightlib_id}"
-    compileOnly files("libs/flywheel-neoforge-1.21.1-1.0.4.jar")
-    compileOnly files("libs/Ponder-NeoForge-1.21.1-1.0.56.jar")
-    compileOnly files("libs/Registrate-MC1.21-1.3.0+62.jar")
 }
 
 tasks.withType(ProcessResources).configureEach {

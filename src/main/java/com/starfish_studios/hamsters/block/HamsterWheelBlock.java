@@ -1,8 +1,6 @@
 package com.starfish_studios.hamsters.block;
 
-import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
-import com.simibubi.create.foundation.block.IBE;
-import com.starfish_studios.hamsters.block.entity.HamsterWheelBlockEntity;
+import com.mojang.serialization.MapCodec;
 import com.starfish_studios.hamsters.block.util.HamsterBlock;
 import com.starfish_studios.hamsters.entity.Hamster;
 import com.starfish_studios.hamsters.entity.SeatEntity;
@@ -20,12 +18,10 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -41,8 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class HamsterWheelBlock extends DirectionalKineticBlock
-        implements HamsterBlock, SimpleWaterloggedBlock, IBE<HamsterWheelBlockEntity> {
+public class HamsterWheelBlock extends BaseEntityBlock implements HamsterBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
@@ -93,17 +88,6 @@ public class HamsterWheelBlock extends DirectionalKineticBlock
         if (HamsterBlock.isWaterlogged(blockState))
             return Fluids.WATER.getSource(false);
         return super.getFluidState(blockState);
-    }
-
-    @Override
-    public Direction.Axis getRotationAxis(BlockState state) {
-        return state.getValue(FACING).getAxis();
-    }
-
-    @Override
-    public boolean hasShaftTowards(LevelReader levelReader, BlockPos blockPos, BlockState blockState,
-            Direction direction) {
-        return direction == blockState.getValue(FACING).getOpposite();
     }
 
     // endregion
@@ -200,23 +184,13 @@ public class HamsterWheelBlock extends DirectionalKineticBlock
     }
 
     @Override
-    public BlockEntityType<? extends HamsterWheelBlockEntity> getBlockEntityType() {
-        return HamstersBlockEntities.HAMSTER_WHEEL.get();
-    }
-
-    @Override
-    public Class<HamsterWheelBlockEntity> getBlockEntityClass() {
-        return HamsterWheelBlockEntity.class;
-    }
-
-    @Override
     public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-    public boolean showCapacityWithAnnotation() {
-        return true;
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(HamsterWheelBlock::new);
     }
 
     // endregion
